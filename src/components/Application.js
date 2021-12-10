@@ -7,16 +7,21 @@ import DayList from "./DayList";
 import appointments from "./appointmentData" // mock data
 
 export default function Application(props) {
-  const [day, setDay ] = useState('Monday');
-  const [days, setDays] = useState([]);
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    // appointments: {} // may put this line, but have to remove/comment hardcoded appts vars
+  });
+  const setDay = (day) => setState({ ...state, day });
+  const setDays = (days) => setState({ ...state, days });
   
+  // renders data for days (nav bar)
   useEffect(() => {
-    const baseUrl = 'http://localhost:8001';
     axios
-      .get(`${baseUrl}/api/days`)
+      .get('/api/days')
       .then((response) => {
-        setDays([...response.data])
-      })
+        setDays(response.data)
+      });
   }, []);
 
   const parsedAppts = appointments.map(a =>
@@ -34,8 +39,8 @@ export default function Application(props) {
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
         <DayList
-          days={days}
-          value={day}
+          days={state.days}
+          value={state.day}
           onChange={setDay}
         />
         </nav>
