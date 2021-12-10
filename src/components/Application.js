@@ -1,36 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 import "components/Application.scss";
 import Appointment from "./Appointment";
 import DayList from "./DayList";
-
-// mock constant data
-import appointments from "./appointmentData"
-const days = [
-  {
-    id: 1,
-    name: "Monday",
-    spots: 2,
-  },
-  {
-    id: 2,
-    name: "Tuesday",
-    spots: 5,
-  },
-  {
-    id: 3,
-    name: "Wednesday",
-    spots: 0,
-  },
-];
+import appointments from "./appointmentData" // mock data
 
 export default function Application(props) {
   const [day, setDay ] = useState('Monday');
+  const [days, setDays] = useState([]);
+  
+  useEffect(() => {
+    const baseUrl = 'http://localhost:8001';
+    axios
+      .get(`${baseUrl}/api/days`)
+      .then((response) => {
+        setDays([...response.data])
+      })
+  }, []);
 
   const parsedAppts = appointments.map(a =>
-    <Appointment
-      key={a.id}
-      {...a}
-    />
+    <Appointment key={a.id} {...a} />
   );
 
   return (
