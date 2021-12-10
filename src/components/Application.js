@@ -26,6 +26,13 @@ const days = [
 export default function Application(props) {
   const [day, setDay ] = useState('Monday');
 
+  const parsedAppts = appointments.map(a =>
+    <Appointment
+      key={a.id}
+      {...a}
+    />
+  );
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -50,7 +57,8 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {/* Replace this with the schedule elements during the "The Scheduler" activity. */}
-
+        {parsedAppts}
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );
