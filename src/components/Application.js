@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-
 import "components/Application.scss";
+import Appointment from "./Appointment";
 import DayList from "./DayList";
 
+// mock constant data
+import appointments from "./appointmentData"
 const days = [
   {
     id: 1,
@@ -47,7 +49,8 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+        {/* Replace this with the schedule elements during the "The Scheduler" activity. */}
+
       </section>
     </main>
   );
