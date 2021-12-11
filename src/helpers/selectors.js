@@ -1,8 +1,9 @@
-// 1. start by finding object in state.days array where name matches provided day. 
-//  With this info we can access that specific days appointment array.
-// 2. Once we access the appointment array for given day, need to iterate through it
-//  comparing where it's id matches id of states.appointments and return that value.
-// 3. We should also probably do a bit of validation. If there are no appointments on the given day, our days data will be empty. According to our tests, in a case like this, we should return an empty array.
+// 1. find object in state.days array where name matches provided day. 
+//  then access that specific days appointment array.
+// 2. Once we access appointment array for given day, iterate through it
+//  if id matches id of states.appointments, return that value.
+// 3. Validation: If no appointments on given day, days data will be empty.
+//  According to tests, should return an empty array.
 
 export function getAppointmentsForDay(state, day) {
   //... returns an array of appointments for that day

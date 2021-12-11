@@ -4,29 +4,46 @@ import axios from "axios";
 import "components/Application.scss";
 import Appointment from "./Appointment";
 import DayList from "./DayList";
-import appointments from "./appointmentData" // mock data
+import { getAppointmentsForDay } from "helpers/selectors";
+// import appointments from "./appointmentData" // mock data
 
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    // appointments: {} // may put this line, but have to remove/comment hardcoded appts vars
+    appointments: {}
   });
   const setDay = (day) => setState({ ...state, day });
-  const setDays = (days) => setState({ ...state, days });
+  // const setDays = (days) => setState({ ...state, days });
+
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  console.log('dailyAppointments', dailyAppointments);
+  const parsedAppts = dailyAppointments.map(a =>
+    <Appointment key={a.id} {...a} />
+  );
   
   // renders data for days (nav bar)
   useEffect(() => {
-    axios
-      .get('/api/days')
-      .then((response) => {
-        setDays(response.data)
-      });
+    Promise.all([
+      axios.get('/api/days'),
+      axios.get('/api/appointments'),
+      // axios.get('/api/interviewers')
+    ]).then((all) => {
+      // console.log(all);
+      // console.log('days', all[0].data);
+      // console.log('appts', all[1].data);
+      // console.log('interviewers', all[2].data);
+      // const [first, second] = all;
+      // console.log(first, second)
+
+      setState(prev => ({...prev,
+        days: all[0].data,
+        appointments: all[1].data,
+        // interviewers: all[2].data
+      }));
+    });
   }, []);
 
-  const parsedAppts = appointments.map(a =>
-    <Appointment key={a.id} {...a} />
-  );
 
   return (
     <main className="layout">
