@@ -4,42 +4,50 @@ import axios from "axios";
 import "components/Application.scss";
 import Appointment from "./Appointment";
 import DayList from "./DayList";
-import { getAppointmentsForDay } from "helpers/selectors";
+import { getAppointmentsForDay, getInterview } from "helpers/selectors";
 // import appointments from "./appointmentData" // mock data
 
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
   const setDay = (day) => setState({ ...state, day });
   // const setDays = (days) => setState({ ...state, days });
-
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
-  console.log('dailyAppointments', dailyAppointments);
-  const parsedAppts = dailyAppointments.map(a =>
-    <Appointment key={a.id} {...a} />
-  );
   
-  // renders data for days (nav bar)
+  const appointments = getAppointmentsForDay(state, state.day);
+  // console.log(appointments); // [{}, {},...]
+  const schedule = appointments.map(appt => {
+    // console.log(appt); // {id: 1, time: '12pm', interview: {...}}
+    const interview = getInterview(state, appt.interview);
+    return (
+      <Appointment
+        key={appt.id}
+        id={appt.id}
+        time={appt.time}
+        interview={interview}
+      />
+    );
+  });
+  
+  // renders data for everything
   useEffect(() => {
     Promise.all([
       axios.get('/api/days'),
       axios.get('/api/appointments'),
-      // axios.get('/api/interviewers')
+      axios.get('/api/interviewers')
     ]).then((all) => {
-      // console.log(all);
       // console.log('days', all[0].data);
-      // console.log('appts', all[1].data);
+      // console.log('appointments', all[1].data);
       // console.log('interviewers', all[2].data);
-      // const [first, second] = all;
-      // console.log(first, second)
-
+      const [days, appointments, interviewers] = [all[0].data, all[1].data, all[2].data];
+      
       setState(prev => ({...prev,
-        days: all[0].data,
-        appointments: all[1].data,
-        // interviewers: all[2].data
+        days,
+        appointments,
+        interviewers
       }));
     });
   }, []);
@@ -69,7 +77,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {/* Replace this with the schedule elements during the "The Scheduler" activity. */}
-        {parsedAppts}
+        {schedule}
         <Appointment key="last" time="5pm" />
       </section>
     </main>
