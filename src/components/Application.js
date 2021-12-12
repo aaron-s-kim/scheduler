@@ -4,7 +4,7 @@ import axios from "axios";
 import "components/Application.scss";
 import Appointment from "./Appointment";
 import DayList from "./DayList";
-import { getAppointmentsForDay, getInterview } from "helpers/selectors";
+import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors";
 // import appointments from "./appointmentData" // mock data
 
 export default function Application(props) {
@@ -19,18 +19,24 @@ export default function Application(props) {
   
   const appointments = getAppointmentsForDay(state, state.day);
   // console.log(appointments); // [{}, {},...]
+  const interviewers = getInterviewersForDay(state, state.day);
+  // console.log(interviewers); // [{}, {},...]
   const schedule = appointments.map(appt => {
     // console.log(appt); // {id: 1, time: '12pm', interview: {...}}
     const interview = getInterview(state, appt.interview);
+
     return (
       <Appointment
         key={appt.id}
         id={appt.id}
         time={appt.time}
         interview={interview}
+        interviewers={interviewers}
       />
     );
   });
+
+  
   
   // renders data for everything
   useEffect(() => {

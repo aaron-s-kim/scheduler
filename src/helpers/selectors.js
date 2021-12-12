@@ -6,7 +6,7 @@
 //  According to tests, should return an empty array.
 
 export function getAppointmentsForDay(state, day) {
-  //... returns an array of appointments for that day
+  //... returns an array of appointments for day
   const filteredDays = state.days.filter(d => d.name === day);
   const apptsForDay = (filteredDays.length) ? filteredDays[0].appointments : [];
   const arrApptObjs = apptsForDay.map(id => {
@@ -18,6 +18,16 @@ export function getAppointmentsForDay(state, day) {
   // console.log('3_arrApptObjs', arrApptObjs);
 
   return arrApptObjs;
+}
+
+// provide list of interviewers to the Form component
+export function getInterviewersForDay(state, day) {
+  const filteredDays = state.days.filter(d => d.name === day);
+  const interviewersForDay = (filteredDays.length) ? filteredDays[0].interviewers : [];
+  const arrInterviewersObjs = interviewersForDay.map(id => {
+    return state.interviewers[id];
+  });
+  return arrInterviewersObjs;
 }
 
 // return an object that contains the interview data if it is passed an object that contains an interviewer.

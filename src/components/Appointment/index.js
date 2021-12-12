@@ -14,7 +14,7 @@ export default function Appointment(props) {
     //   "student": "Lydia Miller-Jones",
     //   "interviewer": { "id": 1, "name": "Sylvia Palmer", "avatar": "https://i.imgur.com/LpaY82x.png" }
     // };
-  const {id, time, interview} = props;
+  const {id, time, interview, interviewers} = props;
   const EMPTY = "EMPTY", SHOW = "SHOW", CREATE = "CREATE";
   const { mode, transition, back } = useVisualMode(
     interview ? SHOW : EMPTY
@@ -34,7 +34,7 @@ export default function Appointment(props) {
       )}
       {mode === CREATE && (
         <Form
-          interviewers={[]}
+          interviewers={interviewers}
           onCancel={() => back()}
         />
       )}
