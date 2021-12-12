@@ -8,8 +8,11 @@ export default function useVisualMode(initial) {
   console.log('history', history);
 
   // When transition is called, we need to add the new mode to our history.
-  const transition = (mode) => {
+  // Add Default Parameter 'replace' argument
+  //   When replace = true, set history to reflect we are replacing current mode.
+  const transition = (mode, replace = false) => {
     const newHistory = [...history];
+    if (replace) newHistory.pop();
     newHistory.push(mode);
     setHistory(newHistory);
     setMode(mode);
