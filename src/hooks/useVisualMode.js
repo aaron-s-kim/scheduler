@@ -16,7 +16,10 @@ export default function useVisualMode(initial) {
   }
   
   // When back is called, we should set the mode to the previous item in our history array.
+  // Back Limit: should not return to previous mode if already at initial
+  //  history array needs to have length >= 2.
   const back = () => {
+    if (history.length < 2) return;
     history.pop(); // removes last item
     const lastItem = history[history.length - 1] // previous last item
     console.log('lastItem', lastItem);
