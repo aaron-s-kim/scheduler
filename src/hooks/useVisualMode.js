@@ -7,8 +7,8 @@ export default function useVisualMode(initial) {
   //  ex. (1) Form > (2) saving Status > (3) Error; 'back' will skip Status and go to Form
   const transition = (newMode, replace = false) => {
     setHistory(prev => {
-      if (replace) return [newMode, ...prev.slice(1)];
-      return [newMode, ...prev]; // adds newMode to beginning of arr
+      if (replace) return [newMode, ...prev.slice(1)]; // adds newMode to front of prev arr, removes 1st item of prev arr
+      return [newMode, ...prev]; // adds newMode to front of arr
     });
   }
   
