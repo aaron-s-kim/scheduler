@@ -5,8 +5,8 @@
 // 3. Validation: If no appointments on given day, days data will be empty.
 //  According to tests, should return an empty array.
 
+// returns array of appointments for day
 export function getAppointmentsForDay(state, day) {
-  //... returns an array of appointments for day
   const filteredDays = state.days.filter(d => d.name === day);
   const apptsForDay = (filteredDays.length) ? filteredDays[0].appointments : [];
   const arrApptObjs = apptsForDay.map(id => {
@@ -20,7 +20,7 @@ export function getAppointmentsForDay(state, day) {
   return arrApptObjs;
 }
 
-// provide list of interviewers to the Form component
+// returns array of interviewer objects for day (to be sent to Form component)
 export function getInterviewersForDay(state, day) {
   const filteredDays = state.days.filter(d => d.name === day);
   const interviewersForDay = (filteredDays.length) ? filteredDays[0].interviewers : [];
@@ -30,7 +30,7 @@ export function getInterviewersForDay(state, day) {
   return arrInterviewersObjs;
 }
 
-// return an object that contains the interview data if it is passed an object that contains an interviewer.
+// returns object that contains interview data if passed an object that contains an interviewer.
 export function getInterview(state, interview) {
   if (!interview) return null;
 
@@ -38,3 +38,15 @@ export function getInterview(state, interview) {
   interview.interviewer = { ...state.interviewers[id] }
   return interview;
 }
+
+// Zack's code
+// export function getInterview(state, interview) {
+//   if (state.interviewers && interview) {
+//     const result = {
+//       "student": interview.student,
+//       "interviewer": state.interviewers[interview.interviewer]
+//     };
+//     return result;
+//   }
+//   return null;
+// };
