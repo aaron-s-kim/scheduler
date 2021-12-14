@@ -2,10 +2,8 @@ import React from 'react';
 
 // allows user to see existing appointment
 export default function Show(props) {
-  // student:String - eg. "Lydia Miller-Jones"
-  // interviewer:Object - i.e. story: array of objs
-  // onEdit:Function - called when user clicks Edit button
-  // onDelete:Function - called when user clicks Delete button
+  // student:Str, interviewer:Obj, onEdit:Func, onDelete:Func
+  // interview:Obj {student: {}, interviewer: {id, name, avatar}}
   const {student, interviewer, onEdit, onDelete} = props;
 
   return (

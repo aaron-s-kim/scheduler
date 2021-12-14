@@ -2,15 +2,12 @@ import React from "react";
 
 import "components/InterviewerList.scss";
 import InterviewerListItem from "./InterviewerListItem";
-// import classNames from "classnames";
 
-// holds all InterviewerListItem components together
+// holds all InterviewerListItem components
 export default function InterviewerList(props) {
-  // interviewers:array - array of objects [ interviewer{id, name, avatar}, ... ]
-  // onChange:function - function that accepts interviewer id. This function will just be passed down to the InterviewerListItem
-  // value:number - number that represents id of currently selected interviewer
+  // interviewers:ArrOfObjs, onChange:func
+  // value:Num - id of selected interviewer
   const {interviewers, onChange, value} = props;
-  // const [state, setState] = useState('');
 
   const parsedInterviewers = interviewers.map(i =>
     <InterviewerListItem
@@ -19,9 +16,6 @@ export default function InterviewerList(props) {
       setInterviewer={() => onChange(i.id)}
     />
   );
-
-  // const interviewerClass = classNames('interviewers', {
-  // });
 
   return (
     <section className="interviewers">

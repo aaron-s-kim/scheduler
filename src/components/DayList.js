@@ -4,9 +4,9 @@ import DayListItem from './DayListItem';
 
 // responsible for rendering a list of <DayListItem> components
 export default function DayList(props) {
-  // days:Array [ day:{id, name, spots}, ...]
-  // value:String currently selected day
-  // onChange:Function sets currently selected day and accepts day name
+  // days:Arr [ day:{id:Num, name:Str, appts:ArrOfNums, spots:Num}, ...]
+  // value:Str - selected day
+  // onChange:Func sets selected day and accepts day name
   const {days, value, onChange} = props;
 
   // const dayData = Object.values({...days});

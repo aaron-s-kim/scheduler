@@ -4,17 +4,15 @@ import Button from "components/Button";
 
 // user inputs information, can save and edit
 export default function Form(props) {
-  // student:String, interviewers:Array, interviewer:Number
-  // onSave:Function - pass state (student, interviewer) as args to this callback, onCancel:Function
+  // interviewers:ArrOfObjs, onSave:Func - callback args (student, interviewer), onCancel:Func
   const {interviewers, onSave, onCancel} = props;
-
-  const [name, setName] = useState(props.name || "");
-  // interviewer:Number - interviewer's id, setInterviewer:Function
+  // student:Str, interviewer:Num - id of interviewer
+  const [student, setStudent] = useState(props.student || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
   // Clear all fields
   const reset = function() {
-    setName("");
+    setStudent("");
     setInterviewer(null);
   }
   const cancel = function() {
@@ -32,20 +30,20 @@ export default function Form(props) {
             name="name"
             type="text"
             placeholder="Enter Student Name"
-            value={name}
-            onChange={(event) => setName(event.target.value)}
+            value={student}
+            onChange={(event) => setStudent(event.target.value)}
           />
         </form>
         <InterviewerList 
           interviewers={interviewers}
-          value={interviewer}
           onChange={setInterviewer}
+          value={interviewer}
         />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button onClick={cancel} danger>Cancel</Button>
-          <Button onClick={() => onSave(name, interviewer)} confirm>Save</Button>
+          <Button onClick={() => onSave(student, interviewer)} confirm>Save</Button>
         </section>
       </section>
     </main>

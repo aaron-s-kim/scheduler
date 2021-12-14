@@ -3,9 +3,7 @@ import Button from 'components/Button';
 
 // allows user to confirm destructive action
 export default function Confirm(props) {
-  // message:String - eg. "Delete the appointment?"
-  // onConfirm:Function - called when user clicks Confirm button
-  // onCancel:Function - called when user clicks Cancel button
+  // message:Str, onConfirm:Func, onCancel:Func
   const {message, onConfirm, onCancel} = props;
 
   return (

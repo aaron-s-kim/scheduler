@@ -2,7 +2,7 @@ import React from 'react';
 
 // informs user operation is in progress
 export default function Status(props) {
-  // message:String - eg. "Deleting"
+  // message:Str
   const {message} = props;
 
   return (

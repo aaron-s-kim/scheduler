@@ -2,7 +2,7 @@ import React from 'react';
 
 // displays the time for appointment
 export default function Header(props) {
-  // time:String - time of appointment (e.g "12pm")
+  // time:Str
   const {time} = props;
 
   return (

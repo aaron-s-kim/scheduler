@@ -2,8 +2,7 @@ import React from 'react';
 
 // informs user when error occurs
 export default function Error(props) {
-  // message:String - eg. "Could not delete appointment."
-  // onClose:Function - called when user clicks Close button
+  // message:Str, onClose:Func
   const {message, onClose} = props;
 
   return (
