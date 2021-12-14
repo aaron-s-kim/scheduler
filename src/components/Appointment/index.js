@@ -4,7 +4,8 @@ import Header from './Header';
 import Show from './Show';
 import Empty from './Empty';
 import Form from './Form';
-// import Status from 'components/Appointment/Status';
+import Status from './Status';
+import Confirm from './Confirm';
 import useVisualMode from 'hooks/useVisualMode';
 import "components/Appointment/styles.scss";
 
@@ -14,8 +15,8 @@ export default function Appointment(props) {
     //   "student": "Lydia Miller-Jones",
     //   "interviewer": { "id": 1, "name": "Sylvia Palmer", "avatar": "https://i.imgur.com/LpaY82x.png" }
     // };
-  const {id, time, interview, interviewers, bookInterview} = props;
-  const EMPTY = "EMPTY", SHOW = "SHOW", CREATE = "CREATE"/* , SAVING = "SAVING" */;
+  const {id, time, interview, interviewers, bookInterview, cancelInterview } = props;
+  const EMPTY = "EMPTY", SHOW = "SHOW", CREATE = "CREATE", SAVING = "SAVING", DELETING = "DELETING", CONFIRM="CONFIRM";
   const { mode, transition, back } = useVisualMode(
     interview ? SHOW : EMPTY
   );
@@ -25,10 +26,15 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    // transition(SAVING);
-
+    transition(SAVING);
     bookInterview(id, interview)
       .then(() => transition(SHOW));
+  }
+
+  const remove = () => {
+    cancelInterview(id)
+      .then(() => transition(EMPTY));
+    transition(DELETING);
   }
   
   return (
@@ -40,6 +46,7 @@ export default function Appointment(props) {
         <Show
           student={interview.student}
           interviewer={interview.interviewer}
+          onDelete={() => transition(CONFIRM)}
         />
       )}
       {mode === CREATE && (
@@ -52,6 +59,13 @@ export default function Appointment(props) {
           onCancel={() => back()}
         />
       )}
+      {mode === SAVING && <Status message="Saving" />}
+      {mode === DELETING && <Status message="Deleting" />}
+      {mode === CONFIRM && <Confirm
+        message="Are you sure you would like to delete?"
+        onConfirm={remove}
+        onCancel={back}
+      />}
     </article>
   );
 }
