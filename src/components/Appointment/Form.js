@@ -4,11 +4,9 @@ import Button from "components/Button";
 
 // user inputs information, can save and edit
 export default function Form(props) {
-  // interviewers:ArrOfObjs, onSave:Func - callback args (student, interviewer), onCancel:Func
-  const {interviewers, onSave, onCancel} = props;
-  // name:Str, interviewer:Num - id of interviewer
-  const [name, setName] = useState(props.name || "");
-  const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  const {interviewers, onSave, onCancel, name, interviewer} = props; // interviewers:ArrOfObjs, onSave:Func - callback args (student, interviewer), onCancel:Func
+  const [currentName, setName] = useState(name || ""); // name:Str
+  const [currentInterviewer, setInterviewer] = useState(interviewer || null); // interviewer:Num - interviewer id
   const [error, setError] = useState("");
 
   // Clear all fields
@@ -22,11 +20,12 @@ export default function Form(props) {
   }
 
   const validate = () => {
-    if (name === "") {
+    if (currentName === "") {
       setError("Student name cannot be blank");
       return;
     }
-    onSave(name, interviewer);
+    setError("");
+    onSave(currentName, currentInterviewer);
   }
 
   return (
@@ -36,10 +35,10 @@ export default function Form(props) {
         <form autoComplete="off" onSubmit={event => event.preventDefault()}>
           <input
             className="appointment__create-input text--semi-bold"
-            name="name"
+            name={name}
             type="text"
             placeholder="Enter Student Name"
-            value={name}
+            value={currentName}
             onChange={(event) => setName(event.target.value)}
             data-testid="student-name-input" // for testing
           />
@@ -48,13 +47,13 @@ export default function Form(props) {
         <InterviewerList 
           interviewers={interviewers}
           onChange={setInterviewer}
-          value={interviewer}
+          value={currentInterviewer}
         />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button onClick={cancel} danger>Cancel</Button>
-          <Button onClick={() => validate()} confirm>Save</Button>
+          <Button danger onClick={cancel}>Cancel</Button>
+          <Button confirm onClick={validate}>Save</Button>
         </section>
       </section>
     </main>
