@@ -10,7 +10,7 @@ import Confirm from './Confirm';
 import Error from './Error';
 
 export default function Appointment(props) {
-  // id:Num, time:Str - appt time, interviewers:ArrOfObjs
+  // id:Num appt id, time:Str - appt time, interviewers:ArrOfObjs
   // interview:Obj {student: {}, interviewer: {id, name, avatar}}
   const {id, time, interview, interviewers, bookInterview, cancelInterview } = props;
   const EMPTY = "EMPTY", SHOW = "SHOW", CREATE = "CREATE", SAVING = "SAVING", DELETING = "DELETING", CONFIRM="CONFIRM", EDIT="EDIT";

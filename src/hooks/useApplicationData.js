@@ -22,19 +22,29 @@ export default function useApplicationData() {
       }));
     });
   }, []);
+
+  const daysOfWeek = {Monday:0, Tuesday:1, Wednesday:2, Thursday:3, Friday:4};
+  const dayIndex = daysOfWeek[state.day];
+  const days = [...state.days]; // clone state.days => [0:{id, name, appt, int, spots}, 1:{}, ...]
   
   const bookInterview = (id, interview) => {
-    const appointment = {
+    const appointment = { // => {id, time, interview:{}/null}
       ...state.appointments[id],
       interview: { ...interview }
     };
-    const appointments = {
+    const appointments = { // updates appt list with new appt
       ...state.appointments,
       [id]: appointment
     };
+
+    if (!state.appointments[id].interview) { // if empty/null, decrement spots on booking
+      days[dayIndex].spots--;
+    }
+    console.log(days[dayIndex].spots);
+
     return axios
       .put(`/api/appointments/${id}`, { interview })
-      .then((res) => setState({ ...state, appointments }))
+      .then((res) => setState({ ...state, appointments, days }))
   }
 
   const cancelInterview = (id) => {
@@ -46,9 +56,12 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment
     }
+
+    days[dayIndex].spots++; // increase spots on deleting booking
+
     return axios
       .delete(`/api/appointments/${id}`)
-      .then((res) => setState({ ...state, appointments }))
+      .then((res) => setState({ ...state, appointments, days}))
   }
 
   return { state, setDay, bookInterview, cancelInterview };

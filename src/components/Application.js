@@ -10,7 +10,7 @@ export default function Application() {
 
   const interviewers = getInterviewersForDay(state, state.day);
   const appointments = getAppointmentsForDay(state, state.day).map(appt => {
-    // appt => {id: 1, time: '12pm', interview: {...}}
+    // appt => {id: 1, time: '12pm', interview: {student:Str, interviewer:Num} or null}
     return (
       <Appointment
         key={appt.id} {...appt}

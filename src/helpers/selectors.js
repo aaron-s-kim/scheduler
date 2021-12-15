@@ -22,15 +22,15 @@ export function getAppointmentsForDay(state, day) {
 
 // returns array of interviewer objects for day (to be sent to Form component)
 export function getInterviewersForDay(state, day) {
-  const filteredDays = state.days.filter(d => d.name === day);
-  const interviewersForDay = (filteredDays.length) ? filteredDays[0].interviewers : [];
+  const filteredDays = state.days.filter(d => d.name === day); // => [{id:Num, name:Str, appointments:[], interviewers:[], spots:Num]
+  const interviewersForDay = (filteredDays.length) ? filteredDays[0].interviewers : []; // => [Num, ...]
   const arrInterviewersObjs = interviewersForDay.map(id => {
     return state.interviewers[id];
   });
   return arrInterviewersObjs;
 }
 
-// returns object that contains interview data if passed an object that contains an interviewer.
+// returns interview Obj {student:Str, interviewer: {...}} that updates id with corresponding interviewer obj
 export function getInterview(state, interview) {
   if (!interview) return null;
 
@@ -39,14 +39,3 @@ export function getInterview(state, interview) {
   return interview;
 }
 
-// Zack's code
-// export function getInterview(state, interview) {
-//   if (state.interviewers && interview) {
-//     const result = {
-//       "student": interview.student,
-//       "interviewer": state.interviewers[interview.interviewer]
-//     };
-//     return result;
-//   }
-//   return null;
-// };
