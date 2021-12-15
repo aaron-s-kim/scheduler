@@ -23,24 +23,30 @@ export default function useApplicationData() {
     });
   }, []);
 
-  const daysOfWeek = {Monday:0, Tuesday:1, Wednesday:2, Thursday:3, Friday:4};
-  const dayIndex = daysOfWeek[state.day];
-  const days = [...state.days]; // clone state.days => [0:{id, name, appt, int, spots}, 1:{}, ...]
-  
-  const bookInterview = (id, interview) => {
-    const appointment = { // => {id, time, interview:{}/null}
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = { // updates appt list with new appt
-      ...state.appointments,
-      [id]: appointment
-    };
+  const updateSpots = (state, appointments, id) => {
+    const days = state.days.map(day => {return {...day}}); // clone state.days => [0:{id, name, appt, int, spots}, 1:{}, ...]
 
-    if (!state.appointments[id].interview) { // if empty/null, decrement spots on booking
+    const daysOfWeek = {Monday:0, Tuesday:1, Wednesday:2, Thursday:3, Friday:4};
+    const dayIndex = daysOfWeek[state.day];
+
+    // determines if null or exists
+    const prevState = state.appointments[id].interview;
+    const newState = appointments[id].interview;
+    if (!prevState && newState) { // create
       days[dayIndex].spots--;
     }
-    console.log(days[dayIndex].spots);
+    if (prevState && !newState) { // delete
+      days[dayIndex].spots++;
+    }
+
+    return days;
+  }
+
+  const bookInterview = (id, interview) => {
+    const appointment = { ...state.appointments[id], interview: { ...interview } }; // => {id, time, interview:{}/null}
+    const appointments = { ...state.appointments, [id]: appointment }; // updates appt list with new appt
+
+    const days = updateSpots(state, appointments, id);
 
     return axios
       .put(`/api/appointments/${id}`, { interview })
@@ -48,16 +54,10 @@ export default function useApplicationData() {
   }
 
   const cancelInterview = (id) => {
-    const appointment = {
-      ...state.appointments[id],
-      interview: null
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    }
+    const appointment = { ...state.appointments[id], interview: null };
+    const appointments = { ...state.appointments, [id]: appointment };
 
-    days[dayIndex].spots++; // increase spots on deleting booking
+    const days = updateSpots(state, appointments, id);
 
     return axios
       .delete(`/api/appointments/${id}`)
