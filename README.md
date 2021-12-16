@@ -17,10 +17,13 @@ The client application communicates with an API server over HTTP, using the JSON
 
 
 ## Day View
+!["Day View"](https://github.com/aaron-s-kim/scheduler/blob/master/docs/Day-view.png)
 
 ## Appointment Booking
+!["Appointment Booking"](https://github.com/aaron-s-kim/scheduler/blob/master/docs/Appointment-Booking.png)
 
 ## Appointment Cancellation
+!["Appointment Cancellation"](https://github.com/aaron-s-kim/scheduler/blob/master/docs/Appointment-Cancellation.png)
 
 
 
