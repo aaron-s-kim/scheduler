@@ -1,9 +1,8 @@
-// 1. find object in state.days array where name matches provided day. 
-//  then access that specific days appointment array.
-// 2. Once we access appointment array for given day, iterate through it
-//  if id matches id of states.appointments, return that value.
+// 1. find obj in state.days array where name matches provided day
+// 2. access that days' appointment array, iterate through it
+//    if id matches id of states.appointments, return value.
 // 3. Validation: If no appointments on given day, days data will be empty.
-//  According to tests, should return an empty array.
+//    should return empty array.
 
 // returns array of appointments for day
 export function getAppointmentsForDay(state, day) {
@@ -12,11 +11,6 @@ export function getAppointmentsForDay(state, day) {
   const arrApptObjs = apptsForDay.map(id => {
     return state.appointments[id];
   });
-  // console.log('0_state.days', state.days);
-  // console.log('1_filteredDays', filteredDays);
-  // console.log('2_apptsForDay', apptsForDay);
-  // console.log('3_arrApptObjs', arrApptObjs);
-
   return arrApptObjs;
 }
 
@@ -30,10 +24,9 @@ export function getInterviewersForDay(state, day) {
   return arrInterviewersObjs;
 }
 
-// returns interview Obj {student:Str, interviewer: {...}} that updates id with corresponding interviewer obj
+// returns interview Obj {student:Str, interviewer:{...}} that updates id with corresponding interviewer obj
 export function getInterview(state, interview) {
   if (!interview) return null;
-
   const id = interview.interviewer;
   interview.interviewer = { ...state.interviewers[id] }
   return interview;

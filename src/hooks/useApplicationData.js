@@ -32,20 +32,20 @@ export default function useApplicationData() {
     // determines if null or exists
     const prevState = state.appointments[id].interview;
     const newState = appointments[id].interview;
-    if (!prevState && newState) { // create
+    if (!prevState && newState) { // create - decrement spots
       days[dayIndex].spots--;
     }
-    if (prevState && !newState) { // delete
+    if (prevState && !newState) { // delete - increment spots
       days[dayIndex].spots++;
     }
 
     return days;
   }
 
+  // books new interview and updates state with copies
   const bookInterview = (id, interview) => {
     const appointment = { ...state.appointments[id], interview: { ...interview } }; // => {id, time, interview:{}/null}
     const appointments = { ...state.appointments, [id]: appointment }; // updates appt list with new appt
-
     const days = updateSpots(state, appointments, id);
 
     return axios
@@ -53,10 +53,10 @@ export default function useApplicationData() {
       .then((res) => setState({ ...state, appointments, days }))
   }
 
+  // deletes interview and updates state with copies
   const cancelInterview = (id) => {
     const appointment = { ...state.appointments[id], interview: null };
     const appointments = { ...state.appointments, [id]: appointment };
-
     const days = updateSpots(state, appointments, id);
 
     return axios

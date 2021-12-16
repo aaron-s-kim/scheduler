@@ -1,10 +1,9 @@
 import React from 'react';
 import Button from 'components/Button';
 
-// allows user to confirm destructive action
+// allows user to confirm delete action
 export default function Confirm(props) {
-  // message:Str, onConfirm:Func, onCancel:Func
-  const {message, onConfirm, onCancel} = props;
+  const {message, onConfirm, onCancel} = props; // message:Str, onConfirm:Func, onCancel:Func
 
   return (
     <main className="appointment__card appointment__card--confirm">

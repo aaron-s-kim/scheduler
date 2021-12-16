@@ -5,13 +5,13 @@ import PropTypes from 'prop-types';
 
 // holds all InterviewerListItem components
 export default function InterviewerList(props) {
-  // interviewers:ArrOfObjs, onChange:func
-  // value:Num - id of selected interviewer
-  const {interviewers, onChange, value} = props;
+  const {interviewers, onChange, value} = props; // interviewers:ArrOfObjs, onChange:func, value:Num selected interviewer id
 
   const parsedInterviewers = interviewers.map(i =>
     <InterviewerListItem
-      key={i.id} name={i.name} avatar={i.avatar}
+      key={i.id}
+      name={i.name}
+      avatar={i.avatar}
       selected={i.id === value}
       setInterviewer={() => onChange(i.id)}
     />

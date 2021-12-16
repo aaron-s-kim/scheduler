@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import useVisualMode from 'hooks/useVisualMode';
 import "components/Appointment/styles.scss";
 import Header from './Header';
@@ -9,19 +9,14 @@ import Status from './Status';
 import Confirm from './Confirm';
 import Error from './Error';
 
+// appointment mode index
 export default function Appointment(props) {
-  // id:Num appt id, time:Str - appt time, interviewers:ArrOfObjs
-  // interview:Obj {student: {}, interviewer: {id, name, avatar}}
-  const {id, time, interview, interviewers, bookInterview, cancelInterview } = props;
+  const {id, time, interview, interviewers, bookInterview, cancelInterview } = props; // id:Num appt id, time:Str appt time, interview:Obj {student: {}, interviewer: {id, name, avatar}}, interviewers:ArrOfObjs
   const EMPTY = "EMPTY", SHOW = "SHOW", CREATE = "CREATE", SAVING = "SAVING", DELETING = "DELETING", CONFIRM="CONFIRM", EDIT="EDIT";
   const ERROR_SAVE = "ERROR_SAVE", ERROR_DELETE="ERROR_DELETE";
   const { mode, transition, back } = useVisualMode(interview ? SHOW : EMPTY);
-  
-  // useEffect(() => {
-  //   if (interview && mode === EMPTY) transition(SHOW);
-  //   if (!interview && mode === SHOW) transition(EMPTY);
-  // }, [mode, transition, interview])
 
+  // saves currentName of student and currentInterviewer
   const save = (name, interviewer) => {
     if (name && interviewer) {
       const interview = {
@@ -38,6 +33,7 @@ export default function Appointment(props) {
     }
   }
   
+  // deletes existing appointment
   const destroy = () => {
     transition(DELETING, true);
     cancelInterview(id)

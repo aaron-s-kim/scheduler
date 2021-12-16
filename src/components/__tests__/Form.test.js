@@ -4,8 +4,7 @@ import Form from 'components/Appointment/Form'
 
 afterEach(cleanup);
 
-// coverage report:
-//  > npm test -- --coverage --watchAll=false
+// coverage report: > npm test -- --coverage --watchAll=false
 describe("Form", () => {
   const interviewers = [
     {

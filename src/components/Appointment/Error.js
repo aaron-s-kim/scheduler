@@ -2,8 +2,7 @@ import React from 'react';
 
 // informs user when error occurs
 export default function Error(props) {
-  // message:Str, onClose:Func
-  const {message, onClose} = props;
+  const {message, onClose} = props; // message:Str, onClose:Func
 
   return (
     <main className="appointment__card appointment__card--error">

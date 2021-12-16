@@ -2,8 +2,7 @@ import React from 'react';
 
 // allows user to choose which time slot to book
 export default function Empty(props) {
-  // onAdd:Func
-  const {onAdd} = props;
+  const {onAdd} = props; // onAdd:Func
 
   return (
     <main className="appointment__add">

@@ -2,8 +2,7 @@ import React from 'react';
 
 // informs user operation is in progress
 export default function Status(props) {
-  // message:Str
-  const {message} = props;
+  const {message} = props; // message:Str
 
   return (
     <main className="appointment__card appointment__card--status">

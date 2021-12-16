@@ -1,16 +1,11 @@
 import React from "react";
-
 import "components/InterviewerListItem.scss";
 import classNames from "classnames";
 
-// represents 1 interviewer
-// State 1. Unselected: only shows image of interviewer
-// State 2. Selected: highlights item w/ white bg, shows interviewer name
+// represents 1 interviewer, 2 states: Unselected (image), Selected (white bg, interviewer name)
 export default function InterviewerListItem(props) {
-  // name:Str - interviewer name, avatar:url - url to interviewer image
-  // selected:Bool - if interviewer selected, displays name and appropriate styles
-  // setInterviewer:Func - on click, passes interviewer id and sets interviewer
-  const {name, avatar, selected, setInterviewer} = props;
+  // setInterviewer:Func on click, passes interviewer id and sets interviewer
+  const {name, avatar, selected, setInterviewer} = props; // name:Str interviewer name, avatar:url interviewer image, selected:Bool if interviewer selected, shows name and styles
 
   const interviewerClass = classNames ('interviewers__item', {
     'interviewers__item--selected': selected

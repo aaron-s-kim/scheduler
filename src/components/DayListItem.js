@@ -1,15 +1,10 @@
 import React from 'react';
-
 import "components/DayListItem.scss";
 import classNames from "classnames";
 
-// shows all data for a single weekday
+// shows all data for a single day
 export default function DayListItem(props) {
-  // name:String day name
-  // spots:Number num of spots remaining
-  // selected:Boolean t/f declaring that this day is selected
-  // setDay:Function accepts name of day
-  const {name, spots, selected, setDay} = props;
+  const {name, spots, selected, setDay} = props; // name:Str day, spots:Num spots remaining, selected:Bool day selected, setDay:Func (day name)
 
   const dayClass = classNames('day-list__item', {
     'day-list__item--selected': selected,
@@ -20,14 +15,13 @@ export default function DayListItem(props) {
     return (spots === 0) ? 'no spots remaining' : (spots === 1) ? '1 spot remaining' : `${spots} spots remaining`;
   }
 
+  // represents entire day item
   return (
     <li
       onClick={setDay}
       className={dayClass}
-      data-cy="day"
+      data-cy="day" // cypress testing
     >
-      {/* li represents entire day item */}
-
       {/* h2 displays day name */}
       <h2 className="text--regular">{name}</h2> 
       {/* h3 displays spots remaining for a day */}

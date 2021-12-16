@@ -4,9 +4,9 @@ import Button from "components/Button";
 
 // user inputs information, can save and edit
 export default function Form(props) {
-  const {interviewers, onSave, onCancel, name, interviewer} = props; // interviewers:ArrOfObjs, onSave:Func - callback args (student, interviewer), onCancel:Func
+  const {interviewers, onSave, onCancel, name, interviewer} = props; // interviewers:ArrOfObjs, onSave:Func callback args (student, interviewer), onCancel:Func
   const [currentName, setName] = useState(name || ""); // name:Str
-  const [currentInterviewer, setInterviewer] = useState(interviewer || null); // interviewer:Num - interviewer id
+  const [currentInterviewer, setInterviewer] = useState(interviewer || null); // interviewer:Num interviewer id
   const [error, setError] = useState("");
 
   // Clear all fields
@@ -19,6 +19,7 @@ export default function Form(props) {
     onCancel();
   }
 
+  // validate if blank input name input
   const validate = () => {
     if (currentName === "") {
       setError("Student name cannot be blank");

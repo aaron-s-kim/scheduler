@@ -8,7 +8,7 @@ import useApplicationData from "hooks/useApplicationData";
 export default function Application() {
   const { state, setDay, bookInterview, cancelInterview } = useApplicationData();
 
-  const interviewers = getInterviewersForDay(state, state.day);
+  const interviewers = getInterviewersForDay(state, state.day); // => arrInterviewersObjs
   const appointments = getAppointmentsForDay(state, state.day).map(appt => {
     // appt => {id: 1, time: '12pm', interview: {student:Str, interviewer:Num} or null}
     return (
@@ -33,7 +33,12 @@ export default function Application() {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-        <DayList days={state.days} value={state.day} onChange={setDay} />
+          {/* List of days */}
+          <DayList
+            days={state.days}
+            value={state.day}
+            onChange={setDay}
+          />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
@@ -42,9 +47,12 @@ export default function Application() {
         />
       </section>
       <section className="schedule">
-        {/* Replace this with the schedule elements during the "The Scheduler" activity. */}
+        {/* List of appointment slots */}
         {appointments}
-        <Appointment key="last" time="5pm" />
+        <Appointment
+          key="last"
+          time="5pm"
+        />
       </section>
     </main>
   );

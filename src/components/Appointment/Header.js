@@ -2,8 +2,7 @@ import React from 'react';
 
 // displays the time for appointment
 export default function Header(props) {
-  // time:Str
-  const {time} = props;
+  const {time} = props; // time:Str
 
   return (
     <header className="appointment__time">

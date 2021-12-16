@@ -2,9 +2,7 @@ import React from 'react';
 
 // allows user to see existing appointment
 export default function Show(props) {
-  // student:Str, interviewer:Obj, onEdit:Func, onDelete:Func
-  // interview:Obj {student: {}, interviewer: {id, name, avatar}}
-  const {student, interviewer, onEdit, onDelete} = props;
+  const {student, interviewer, onEdit, onDelete} = props; // student:Str, interviewer:Obj, onEdit:Func, onDelete:Func
 
   return (
     <main className="appointment__card appointment__card--show">
