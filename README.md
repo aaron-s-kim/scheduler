@@ -15,20 +15,17 @@ The client application communicates with an API server over HTTP, using the JSON
 - A user can cancel an existing interview by clicking on the 'delete' icon
 - Upon cancelling an interview, a notification message will appear to confirm deletion.
 
-
 ## Day View
 !["Day View"](https://github.com/aaron-s-kim/scheduler/blob/master/docs/Day-view.png)
+*Selecting a weekday on the left sidebar will show appointments and empty slots for that day*
 
 ## Appointment Booking
 !["Appointment Booking"](https://github.com/aaron-s-kim/scheduler/blob/master/docs/Appointment-Booking.png)
+*A user can book an interview by: selecting an empty slot, typing their name, clicking on an interviewer image, and clicking save*
 
 ## Appointment Cancellation
 !["Appointment Cancellation"](https://github.com/aaron-s-kim/scheduler/blob/master/docs/Appointment-Cancellation.png)
-
-
-
-
-
+*A user can delete an interview by: clicking the delete icon on an existing interview and clicking confirm on the delete message prompt*
 
 ## Setup
 
@@ -51,3 +48,17 @@ npm test
 ```sh
 npm run storybook
 ```
+
+## API Server
+For full functionality, both the client and API server application must be run concurrently.
+- Start by forking and cloning the scheduler-api server [here](https://github.com/lighthouse-labs/scheduler-api)
+- Follow the steps outlined in README to install and setup the database
+- Fork and clone this repo
+- Navigate to the root directory and install dependencies with npm install
+- Once you have the database setup and the scheduler-api server running, run the following command from the root directory of the project npm start
+
+
+## Project Stack
+Front-End: React, Axios, JSX, HTML, SASS, JavaScript
+Back-End: Express, Node.js, PostgreSQL
+Testing: Storybook, Webpack Dev Server, Jest, Testing Library and Cypress
